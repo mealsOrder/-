@@ -4,19 +4,19 @@
 using namespace std;
 
 
-const int MAX = 1000;
+const int MAX = 1001;
 
-int d = 0;
+int n,x,y,d;
+int dist[MAX];
 int parent[MAX] = {0,};
 bool visited[MAX] = {0,};
-int n,x,y;
 
 
 int main(){
 	
 	cin >> n >> x >> y;
 	
-	for(int i=1;i<n;i++){
+	for(int i=0;i<n-1;i++){
 		int a,b;
 		
 		cin >> a >> b ;
@@ -25,36 +25,27 @@ int main(){
 		
 	}
 	
-	while(1){
-		visited[x] = true;
-		
-		if(x == 0){
-			break;
-		}
-		x = parent[x];
-		d++;	
-		
-		
+	
+	visited[x] = true;
+	
+	while(x > 0){
+		dist[parent[x]] = dist[x]+1;
+		visited[parent[x]] = true;
+		x = parent[x];	
 	}
 	
+	d = 0;
 	
-	while(1){
-		if(visited[y] == true){
-			if(y == 0 || parent[y] == 0){
-				break;
-			}
-			//visited[y] = true;
-			y = parent[y];
-      		d++;
-      		
+	while(y != 0){
+		if(visited[y] != false ){
+			break;
     	}
-    	visited[y] = true;
+    	//visited[y] = true;
     	y = parent[y];
     	d++;
-		
 	}
 	
-	cout << d << endl;
+	cout << d + dist[y] << endl;
 	
 	return 0;
 	
